@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+ 
+ <!-- Jesli potrzebne to odkomentowac 
+  <parent>
+        <groupId>org.apache</groupId>
+        <artifactId>apache</artifactId>
+        <version>13</version>
+        <relativePath />
+    </parent> --> 
+    
+    
+    
+  <groupId>org.webconsole</groupId>
+  <artifactId>parent-webconsole</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Webconsole :: Parent</name>
+  
+  <properties>
+        <osgi.import>*</osgi.import>
+        <osgi.export><![CDATA[
+            !${project.groupId}.${project.artifactId}.internal*,
+            ${project.groupId}.${project.artifactId}*;version=${project.version}
+        ]]></osgi.export>
+        <osgi.private />
+        
+        <!-- nie wiem czy potrzebne 
+        <service-locator.version>1.0.0-SNAPSHOT</service-locator.version>
+        <wicket.version>6.9.1</wicket.version>
+        <jolokia.version>1.1.5</jolokia.version> -->
+  </properties>
+  
+  <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.15</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.4.0</version>
+                    <configuration>
+                        <instructions>
+                            <Import-Package>${osgi.import}</Import-Package>
+                            <Export-Package>${osgi.export}</Export-Package>
+                            <Private-Package>${osgi.private}</Private-Package>
+                        </instructions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.9</version>
+                    <configuration>
+                        <addGroupIdToProjectName>true</addGroupIdToProjectName>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Specifications 
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-atinject_1.0_spec</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-servlet_3.0_spec</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.code-house.service</groupId>
+                <artifactId>api</artifactId>
+                <version>${service-locator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.code-house.service</groupId>
+                <artifactId>core</artifactId>
+                <version>${service-locator.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.code-house.service</groupId>
+                <artifactId>jmx</artifactId>
+                <version>${service-locator.version}</version>
+            </dependency> -->
+
+            <!-- Jolokia 
+            <dependency>
+                <groupId>org.code-house.service</groupId>
+                <artifactId>jolokia</artifactId>
+                <version>${service-locator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-client-java</artifactId>
+                <version>${jolokia.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-osgi</artifactId>
+                <version>${jolokia.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-core</artifactId>
+                <version>${jolokia.version}</version> 
+            </dependency> -->
+
+            <!-- Wicket dependencies 
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-request</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-core</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-util</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-ioc</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-devutils</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-extensions</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-auth-roles</artifactId>
+                <version>${wicket.version}</version>
+            </dependency> -->
+        </dependencies>
+    </dependencyManagement>
+    <modules>
+    	<module>api</module>
+    	<module>dao</module>
+    </modules>
+</project>
