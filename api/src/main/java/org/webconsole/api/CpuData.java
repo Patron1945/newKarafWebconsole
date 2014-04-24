@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+//A POJO class, isn't it? 
 @XmlRootElement(name = "cpudata")
 public class CpuData implements Serializable
 {

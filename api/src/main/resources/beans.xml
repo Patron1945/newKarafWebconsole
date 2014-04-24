@@ -17,8 +17,9 @@
 		<jaxrs:serviceBeans>
 			<ref bean="cpuDataService" />
 		</jaxrs:serviceBeans>
-		<!-- <jaxrs:providers> <bean id="jsonProvider" class="com.faster.xml.jackson.jaxrs.json.JacksonJsonProvider"/> 
-			</jaxrs:providers> -->
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/> 
+		</jaxrs:providers>
 		<jaxrs:extensionMappings>
 			<entry key="xml" value="application/xml" />
 		</jaxrs:extensionMappings>
