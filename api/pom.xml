@@ -9,12 +9,11 @@
 	<packaging>jar</packaging>
 	<artifactId>api</artifactId>
 
-	<name>Webconsole :: API</name>
-
 	<properties>
 		<cxf.version>2.2.3</cxf.version>
 	</properties>
 
+	<name>Webconsole :: API</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -22,10 +21,9 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.jaxrs</groupId>
-			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.3.0</version>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
 		</dependency>
 	</dependencies>
-
 </project>

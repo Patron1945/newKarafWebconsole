@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.cxf.jaxrs.impl.NewCookieHeaderProvider;
+import org.apache.cassandra.cli.CliParser.newColumnFamily_return;
 import org.springframework.stereotype.Service;
 import org.webconsole.api.CpuData;
 import org.webconsole.api.CpuDataService;
@@ -23,7 +23,7 @@ import org.webconsole.dao.core.DbConnectionManager;
 // CpuDataService client = ...;
 // clinet.getCpuDataXML();
 
-@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Path("/cpudata")
 public class CpuDataServiceImpl implements CpuDataService
@@ -46,8 +46,8 @@ public class CpuDataServiceImpl implements CpuDataService
 	@Path("/")
 	public CpuData postCpuData(CpuData data)
 	{
-		cpuData = data;
-		return data;
+		cpuDataApi.postCpuUsage(Integer.valueOf(data.getData()));
+		return getCpuData();
 	}
 
 }

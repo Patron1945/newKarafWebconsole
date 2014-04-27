@@ -1,15 +1,44 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.webconsole</groupId>
-    <artifactId>parent-webconsole</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>dao</artifactId>
-  <packaging>pom</packaging>
-  <name>Webconsole :: DAO</name>
-  <modules>
-  	<module>core</module>
-  	<module>api</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.webconsole</groupId>
+		<artifactId>parent-webconsole</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>dao</artifactId>
+	<packaging>pom</packaging>
+	<name>Webconsole :: DAO</name>
+	<modules>
+		<module>core</module>
+		<module>api</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.netflix.astyanax</groupId>
+				<artifactId>astyanax-core</artifactId>
+				<version>1.56.48</version>
+			</dependency>
+			<dependency>
+				<groupId>com.netflix.astyanax</groupId>
+				<artifactId>astyanax-thrift</artifactId>
+				<version>1.56.48</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.servlet</groupId>
+						<artifactId>servlet-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>com.netflix.astyanax</groupId>
+				<artifactId>astyanax-cassandra</artifactId>
+				<version>1.56.48</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 </project>

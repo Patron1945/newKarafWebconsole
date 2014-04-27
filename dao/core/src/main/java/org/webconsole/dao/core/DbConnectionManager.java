@@ -3,6 +3,8 @@ package org.webconsole.dao.core;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 import org.apache.cassandra.cli.CliParser.columnFamily_return;
 import org.apache.cassandra.cli.CliParser.keyRangeExpr_return;
@@ -18,6 +20,7 @@ import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
 import com.netflix.astyanax.ddl.ColumnFamilyDefinition;
+import com.netflix.astyanax.ddl.KeyspaceDefinition;
 import com.netflix.astyanax.ddl.SchemaChangeResult;
 import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
 import com.netflix.astyanax.model.Column;
@@ -37,9 +40,6 @@ public class DbConnectionManager
 
 	AstyanaxContext<Keyspace> context;
 	Keyspace keyspace;
-
-//	public ColumnFamily<Integer, Long> CF_CPU_INFO = new ColumnFamily<Integer, Long>("cpus",
-//			IntegerSerializer.get(), LongSerializer.get(), IntegerSerializer.get());
 
 	protected DbConnectionManager()
 	{
@@ -74,53 +74,24 @@ public class DbConnectionManager
 
 		context.start();
 		keyspace = context.getClient();
-		
-		//Sprawdzic czy dana tabela istnieje
-		//czy tu chodzi o to zeby podstawic CF_CPU_INFO zamist columnFamily
-//		ImmutableMap<String, Object> properties = new ImmutableMap.Builder<String, Object>()
-//				.put("name", columnFamily.getName())
-//				.put("comparator_type", columnFamily.getColumnType().getCassandraName())
-//				.put("key_validation_class", columnFamily.getRowType().getCassandraName())
-//				.put("default_validation_class", columnFamily.getValueType().getCassandraName())
-//				.put("comment", "Created by IPF persistence layer at " + new Date().toString())
-//				.build();
-//
-//				OperationResult<SchemaChangeResult> result = keyspace.createColumnFamily(properties);
-		
-//		try
-//		{
-//			// Upewnic sie czy columnfamily istnieje, jesli nie to utworzyc
-//			context.getClient().createColumnFamily(CF_CPU_INFO, null);
-//
-//			MutationBatch mb = keyspace.prepareMutationBatch();
-//			mb.withRow(CF_CPU_INFO, 10).putColumn(System.currentTimeMillis(), 10)
-//					.putColumn(System.currentTimeMillis() - 10, 50)
-//					.putColumn(System.currentTimeMillis() - 15, 1)
-//					.putColumn(System.currentTimeMillis() - 20, 15);
-//			mb.execute();
-//		}
-//		catch (ConnectionException e)
-//		{
-//			e.printStackTrace();
-//		}
-		
+
 		return keyspace;
 
 	}
 
 	public static void main(String... args)
 	{
-		// Connection
+//		// Connection
 //		DbConnectionManager connectionManager = DbConnectionManager.getInstance();
-//		Keyspace keyspace = connectionManager.connect("cpu_keyspace", "Test Claster", "localhost", "9160");
-
-		// Rows retrieving
+//		Keyspace keyspace = connectionManager.connect("cpu_keyspace", "Test Claster", "localhost",
+//				"9160");
+//
+//		// Rows retrieving
 //		Rows<Integer, Long> rows;
 //		try
 //		{
-//			rows = keyspace.prepareQuery(connectionManager.CF_CPU_INFO)
-//					.getAllRows().setRowLimit(10)
-//					.withColumnRange(new RangeBuilder().setLimit(10).build())
+//			rows = keyspace.prepareQuery(connectionManager.CF_CPU_INFO).getAllRows()
+//					.setRowLimit(10).withColumnRange(new RangeBuilder().setLimit(10).build())
 //					.setExceptionCallback(new ExceptionCallback()
 //					{
 //						@Override
