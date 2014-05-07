@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.webconsole.dao.api.CpuDataApi;
 import org.webconsole.dao.core.DbConnectionManager;
@@ -59,28 +61,24 @@ public class CpuDataApiImpl implements CpuDataApi
 		return result;
 	}
 
-	public String[][] getAllCpuUsage(int rowKey)
+	public Map<Long, Long> getAllCpuUsage(int rowKey)
 	{
-		String[][] result = null;
+		HashMap<Long, Long> result = new HashMap<Long, Long>();
 		
 		OperationResult<ColumnList<Long>> operationResult;
 		try
 		{
 			operationResult = keyspace.prepareQuery(CF_CPU_INFO).getKey(rowKey).execute();
-			ColumnList<Long> columnList = operationResult.getResult();
-			
-			result = new String[columnList.size()][2];
+			ColumnList<Long> columnList = operationResult.getResult();	
 			
 			for(int i = 0; i < columnList.size(); i++)
 			{
-				result[i][0] = String.valueOf(columnList.getColumnByIndex(i).getName());
-				result[i][1] = String.valueOf(columnList.getColumnByIndex(i).getLongValue());
+				result.put(columnList.getColumnByIndex(i).getName(), columnList.getColumnByIndex(i).getLongValue());
 			}
 			
 		}
 		catch (ConnectionException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -142,10 +140,12 @@ public class CpuDataApiImpl implements CpuDataApi
 		
 		cpuDataApiImpl.postCpuUsage(18);
 		
-		String[][] res = cpuDataApiImpl.getAllCpuUsage(10);
+		Map<Long, Long> allCpuUsage = cpuDataApiImpl.getAllCpuUsage(10);
 		
-		for(int i = 0; i < res.length; i++)
-				System.out.println(res[i][0] + " " + res[i][1]);
+		Set<Long> keySet = allCpuUsage.keySet();
+		
+		for(Long tmp : keySet)
+			System.out.println(allCpuUsage.get(tmp));
 
 	}
 }

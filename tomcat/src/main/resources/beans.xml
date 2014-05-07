@@ -13,10 +13,11 @@
 
 	<bean id="cpuDataService" class="org.webconsole.core.CpuDataServiceImpl"/>
 	<bean id="cpuDataApi" class="org.webconsole.dao.core.CpuDataApiImpl" init-method="initialize" lazy-init="true" />
-
+	<bean id="chartUI" class="org.webconsole.ui.ChartUI" /> 
 	<jaxrs:server id="userRestfulWebService" address="/userservices/">
 		<jaxrs:serviceBeans>
 			<ref bean="cpuDataService" />
+			<ref bean="chartUI" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/> 

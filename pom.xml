@@ -116,5 +116,6 @@
 		<module>dao</module>
 		<module>core</module>
 		<module>tomcat</module>
+		<module>ui</module>
 	</modules>
 </project>
