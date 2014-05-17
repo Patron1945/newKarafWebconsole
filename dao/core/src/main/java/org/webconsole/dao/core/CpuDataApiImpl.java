@@ -1,16 +1,11 @@
 package org.webconsole.dao.core;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.webconsole.dao.api.CpuDataApi;
-import org.webconsole.dao.core.DbConnectionManager;
 
 import com.google.common.collect.ImmutableMap;
 import com.netflix.astyanax.Keyspace;
@@ -19,7 +14,6 @@ import com.netflix.astyanax.connectionpool.OperationResult;
 import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 import com.netflix.astyanax.ddl.ColumnFamilyDefinition;
 import com.netflix.astyanax.ddl.SchemaChangeResult;
-import com.netflix.astyanax.model.Column;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.model.ColumnList;
 import com.netflix.astyanax.serializers.IntegerSerializer;
@@ -76,7 +70,7 @@ public class CpuDataApiImpl implements CpuDataApi
 	
 	public Map<Long, Long> getRowCpuUsage(int rowKey)
 	{
-		HashMap<Long, Long> result = new HashMap<Long, Long>();
+		LinkedHashMap<Long, Long> result = new LinkedHashMap<Long, Long>();
 		
 		OperationResult<ColumnList<Long>> operationResult;
 		try
