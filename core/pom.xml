@@ -9,8 +9,6 @@
 	<artifactId>core</artifactId>
 	<name>Webconsole :: Core</name>
 
-	
-
 	<dependencies>
 		<dependency>
 			<groupId>org.webconsole.dao</groupId>

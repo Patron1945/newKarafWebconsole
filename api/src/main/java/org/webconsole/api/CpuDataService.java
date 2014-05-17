@@ -1,8 +1,14 @@
 package org.webconsole.api;
 
+import javax.ws.rs.PathParam;
+
 public interface CpuDataService
 {
-	CpuData getCpuData();
+	CpuData getCpuData(String id);
 
-	CpuData postCpuData(CpuData cpudata);
+	String getRowCpuData(String id);
+	
+	String getAllCpuData();
+	
+	void postCpuData(CpuData cpudata);
 }

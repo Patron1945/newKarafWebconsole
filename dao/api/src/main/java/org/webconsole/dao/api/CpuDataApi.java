@@ -4,9 +4,11 @@ import java.util.Map;
 
 public interface CpuDataApi
 {
-	public Long getCpuUsage(int cpu_id);
+	Long getCpuUsage(int cpu_id);
 	
-	public Map<Long, Long> getAllCpuUsage(int rowKey);
+	Map<Integer, Map<Long, Long>> getAllCpuUsage();
 	
-	public void postCpuUsage(int cpu_usage);
+	Map<Long, Long> getRowCpuUsage(int rowKey);
+	
+	void postCpuUsage(int cpu_usage);
 }

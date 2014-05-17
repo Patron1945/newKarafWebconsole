@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chart page</title>
+<link href="css/demo.css" rel="stylesheet" type="text/css">
+<script src="Chart.js"></script>
+<script src="legend.js"></script>
+<script src="jquery.js"></script>
+<script src="index.js"></script>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+    <div id="lineLegend"></div>
+</body>
+</html>

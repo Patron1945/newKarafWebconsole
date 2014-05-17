@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -39,23 +40,19 @@ public class CpuDataServiceImpl implements CpuDataService
 			.getInstance().connect("cpu_keyspace", "Test Node", "localhost", "9160"));
 	
 	@GET
-	@Path("/")
-	public CpuData getCpuData()
+	@Path("/{id}")
+	public CpuData getCpuData(@PathParam("id") String id)
 	{
 		//Tymczasowo na stale zaimpelemntowane 10
-		cpuData.setData(Long.toString(cpuDataApi.getCpuUsage(10)));
+		cpuData.setData(Long.toString(cpuDataApi.getCpuUsage(Integer.valueOf(id))));
 		return cpuData;
 	}
 	
 	@GET
-	@Path("/all")
-	public String getAllCpuData()
+	@Path("/row/{id}")
+	public String getRowCpuData(@PathParam("id") String id)
 	{
-		Map<Long, Long> allCpuUsage = cpuDataApi.getAllCpuUsage(10);
-//		ByteArrayOutputStream map = new ByteArrayOutputStream();  
-//		XMLEncoder xmlEncoder = new XMLEncoder(map);  
-//		xmlEncoder.writeObject(allCpuUsage);  
-//		xmlEncoder.flush();  
+		Map<Long, Long> allCpuUsage = cpuDataApi.getRowCpuUsage(Integer.valueOf(id));
 		ObjectMapper mapper = new ObjectMapper();
 		String writeValueAsString = null;
 		try
@@ -77,15 +74,46 @@ public class CpuDataServiceImpl implements CpuDataService
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 	
+		
+		return writeValueAsString;
+	}
+	
+	@GET
+	@Path("/all")
+	public String getAllCpuData()
+	{
+		Map<Integer, Map<Long, Long>> allCpuUsage = cpuDataApi.getAllCpuUsage();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String writeValueAsString = null;
+		try
+		{
+			writeValueAsString = mapper.writeValueAsString(allCpuUsage);
+		}
+		catch (JsonGenerationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (JsonMappingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	
+		
 		return writeValueAsString;
 	}
 	
 	@POST
 	@Path("/")
-	public CpuData postCpuData(CpuData data)
+	public void postCpuData(CpuData data)
 	{
 		cpuDataApi.postCpuUsage(Integer.valueOf(data.getData()));
-		return getCpuData();
 	}
 
 }

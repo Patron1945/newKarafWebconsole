@@ -60,8 +60,21 @@ public class CpuDataApiImpl implements CpuDataApi
 
 		return result;
 	}
-
-	public Map<Long, Long> getAllCpuUsage(int rowKey)
+	
+	public Map<Integer, Map<Long, Long>> getAllCpuUsage()
+	{
+		//Tymczasowo pobieramy tylko cpu 10 i 11
+		HashMap<Integer, Map<Long, Long>> map = new HashMap<Integer, Map<Long,Long>>();
+		
+		for(int i = 10; i < 12; i++)
+		{
+			map.put(i, getRowCpuUsage(i));
+		}
+		
+		return map;
+	}
+	
+	public Map<Long, Long> getRowCpuUsage(int rowKey)
 	{
 		HashMap<Long, Long> result = new HashMap<Long, Long>();
 		
@@ -140,12 +153,20 @@ public class CpuDataApiImpl implements CpuDataApi
 		
 		cpuDataApiImpl.postCpuUsage(18);
 		
-		Map<Long, Long> allCpuUsage = cpuDataApiImpl.getAllCpuUsage(10);
+		Map<Long, Long> allCpuUsage = cpuDataApiImpl.getRowCpuUsage(10);
 		
-		Set<Long> keySet = allCpuUsage.keySet();
+		Map<Integer, Map<Long, Long>> allCpuUsage2 = cpuDataApiImpl.getAllCpuUsage();
+		System.out.println();
+		for(Integer i : allCpuUsage2.keySet())
+		{
+			System.out.println("i: " + i);
+			for(Long l : allCpuUsage2.get(i).keySet())
+			{
+				System.out.println(allCpuUsage2.get(i).get(l));
+			}
+		}
 		
-		for(Long tmp : keySet)
-			System.out.println(allCpuUsage.get(tmp));
+		
 
 	}
 }
